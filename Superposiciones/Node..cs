@@ -10,7 +10,7 @@ namespace Superposiciones
     {
         private string id;
         private List<string> funcs;
-        private int nodeSize;
+        private int nodeSize, dirRelativa;
 
         public string Id
         {
@@ -21,6 +21,11 @@ namespace Superposiciones
         {
             get { return nodeSize; }
             set { nodeSize = value; }
+        }
+        public int dRel
+        {
+            get { return dirRelativa; }
+            set { dirRelativa = value; }
         }
         public List<string> Funcs {get { return funcs; } set { funcs = value; } }
 

@@ -61,8 +61,8 @@ namespace Superposiciones
         }
         private void llenarTabla()
         {
-            string[] arr = new string[4]; //aux para llenar listView
-            int dirReal = 0, dirRel = 0; //dirs para la tabla, aún no funcionan
+            
+            int level = 0;
             getFunctions(); //recupera cada función y las guarda en un dict con sus tamaños
             foreach(var item in nodes.Values)
             {
@@ -77,18 +77,66 @@ namespace Superposiciones
                     }
                 }
             }
+            CallRecursive(treeView);
+           
+        }
+        /*
+         * realiza y muestra los cálculos
+         */
+         private void calculatePaths()
+        {
+            
+        }
+        private void PrintRecursive(TreeNode treeNode)
+        {
+            string[] arr = new string[4]; //aux para llenar listView
+            int dirReal = 0, dirRel = 0; //dirs para la tabla, aún no funcionan
+
             //añade elementos al listview, aquí hay que hacer el recorrido por 
             //los nodos para manejar lo de las dirs
-            foreach( var item in nodes.Keys)
+            foreach (var item in nodes.Keys)
             {
-                arr[0] = item;
-                arr[1] = dirRel.ToString("X");
-                arr[2] = (dirCarga + dirRel).ToString("X");
-                arr[3] = nodes[item].nSize.ToString("X");
-                ListViewItem lv = new ListViewItem(arr);
-                listView1.Items.Add(lv);
+                if (treeNode.Name == item)
+                {
+                    arr[0] = item; //bien
+                    foreach(var it in nodes.Keys)
+                    {
+                        if (treeNode.Parent != null)
+                        {
+                            if (it == treeNode.Parent.Name)
+                            {
+                                nodes[item].dRel = nodes[it].nSize + nodes[it].dRel;
+                            }
+                        }
+                        else//es el primero
+                            nodes[item].dRel = 0;
+                    }
+                    
+                    arr[1] = (nodes[item].dRel).ToString("X");//dir rel
+                    arr[2] = (dirCarga + nodes[item].dRel).ToString("X"); //dir real
+                    arr[3] = nodes[item].nSize.ToString("X");//bien
+                    ListViewItem lv = new ListViewItem(arr);
+                    listView1.Items.Add(lv);
+                }
             }
-           
+            //actions
+            
+            //llamar cada nodo recursivamente  
+            foreach (TreeNode tn in treeNode.Nodes)
+            {
+                PrintRecursive(tn);
+            }
+        }
+
+        // Call the procedure using the TreeView.  
+        private void CallRecursive(TreeView treeView)
+        {
+            // Print each node recursively.  
+            TreeNodeCollection nodes = treeView.Nodes;
+            foreach (TreeNode n in nodes)
+            {
+                PrintRecursive(n);
+            }
         }
         /**
          * Recupera las funciones y sus tamaños en un diccionario

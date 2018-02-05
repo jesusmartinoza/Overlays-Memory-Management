@@ -54,17 +54,19 @@ namespace Superposiciones
          */
         private void construirArbol()
         {
+            var nodes = new Dictionary<string, Node>(); 
             var lines = confText.Split(
                     new[] { "\r\n", "\r", "\n" },
                     StringSplitOptions.None
                 );
+            Node node;
+            string parentId = "";
 
             treeView.BeginUpdate();
             for(int i = 0; i < lines.Length; i++)
             {
                 var directive = lines[i].Split()[0].ToUpper(); // Obtener primer palabra
                 string segmentInfo;
-                Node node;
 
                 // Si es SEGMENT crear nuevo nodo e
                 // insertar en árbol
@@ -73,9 +75,28 @@ namespace Superposiciones
                     segmentInfo = lines[i].Replace("SEGMENT", "").Trim();
                     node = new Node(segmentInfo);
 
-                    treeView.Nodes.Add(node.Id);
+                    if(parentId == "")
+                    {
+                        // Raiz
+                        // Crear nuevo nodo de TreeView e insertarlo
+                        var treeNode = new TreeNode(node.Id);
+                        treeNode.Name = node.Id;
+                        treeView.Nodes.Add(treeNode);
+                    } else
+                    {
+                        // Obtener nodo padre e insertarle un nuevo nodo de TreeView
+                        var parentNode = treeView.Nodes.Find(parentId, true).FirstOrDefault();
+                        var treeNode = new TreeNode(node.Id);
+                        treeNode.Name = node.Id;
+
+                        parentNode.Nodes.Add(treeNode);
+                    }
+
+                    nodes.Add(node.Id, node);
+                    parentId = node.Id;
                 } else if (directive.Contains("PARENT")) {
                     segmentInfo = lines[i].Replace("PARENT", "").Trim();
+                    parentId = nodes[segmentInfo].Id;
                 }
             }
             treeView.EndUpdate();

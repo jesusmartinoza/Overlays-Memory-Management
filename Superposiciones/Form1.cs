@@ -27,11 +27,15 @@ namespace Superposiciones
         {
 
         }
+
         //carga de configuración
         private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             confText = readFile();
+            treeView.Nodes.Clear();
+            construirArbol();
         }
+
         //carga de longitudes
         private void botCarga_Click(object sender, EventArgs e)
         {
@@ -42,6 +46,39 @@ namespace Superposiciones
             //convertir a int la cadena en hex
             dirCarga = Int32.Parse(dirCargaStr, System.Globalization.NumberStyles.HexNumber);
             
+        }
+
+        /**
+         * Leer linea por linea y decidir que hacer en caso de
+         * ser SEGMENT o PARENT
+         */
+        private void construirArbol()
+        {
+            var lines = confText.Split(
+                    new[] { "\r\n", "\r", "\n" },
+                    StringSplitOptions.None
+                );
+
+            treeView.BeginUpdate();
+            for(int i = 0; i < lines.Length; i++)
+            {
+                var directive = lines[i].Split()[0].ToUpper(); // Obtener primer palabra
+                string segmentInfo;
+                Node node;
+
+                // Si es SEGMENT crear nuevo nodo e
+                // insertar en árbol
+                if (directive.Contains("SEGMENT"))
+                {
+                    segmentInfo = lines[i].Replace("SEGMENT", "").Trim();
+                    node = new Node(segmentInfo);
+
+                    treeView.Nodes.Add(node.Id);
+                } else if (directive.Contains("PARENT")) {
+                    segmentInfo = lines[i].Replace("PARENT", "").Trim();
+                }
+            }
+            treeView.EndUpdate();
         }
 
         private void ayudaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -60,15 +97,14 @@ namespace Superposiciones
         //regresa una cadena con todo el texto contenido
         private string readFile()
         {
-            string fileText;
             opFile = new OpenFileDialog();
             opFile.Filter = "Configuration Files|*.txt";
             opFile.Title = "Choose a configuration file .txt";
 
             if (opFile.ShowDialog() != DialogResult.OK)
                 return null;
-            fileText = File.ReadAllText(opFile.FileName);
-            return fileText;
+
+            return File.ReadAllText(opFile.FileName);
         }
     }
 }

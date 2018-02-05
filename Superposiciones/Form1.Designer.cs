@@ -32,7 +32,7 @@
             this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.treeView = new System.Windows.Forms.TreeView();
             this.botCarga = new System.Windows.Forms.Button();
             this.textCarga = new System.Windows.Forms.TextBox();
             this.listView1 = new System.Windows.Forms.ListView();
@@ -78,12 +78,12 @@
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
-            // treeView1
+            // treeView
             // 
-            this.treeView1.Location = new System.Drawing.Point(28, 85);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(169, 192);
-            this.treeView1.TabIndex = 1;
+            this.treeView.Location = new System.Drawing.Point(28, 85);
+            this.treeView.Name = "treeView";
+            this.treeView.Size = new System.Drawing.Size(169, 192);
+            this.treeView.TabIndex = 1;
             // 
             // botCarga
             // 
@@ -161,7 +161,7 @@
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.textCarga);
             this.Controls.Add(this.botCarga);
-            this.Controls.Add(this.treeView1);
+            this.Controls.Add(this.treeView);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
@@ -179,7 +179,7 @@
         private System.Windows.Forms.ToolStripMenuItem nuevoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.Button botCarga;
         private System.Windows.Forms.TextBox textCarga;
         private System.Windows.Forms.ListView listView1;

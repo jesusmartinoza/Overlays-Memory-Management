@@ -6,13 +6,23 @@ using System.Threading.Tasks;
 
 namespace Superposiciones
 {
-    class Node
+    public class Node
     {
         private string id;
         private List<string> funcs;
+        private int nodeSize;
 
-        public string Id { get => id; set => id = value; }
-        public List<string> Funcs { get => funcs; set => funcs = value; }
+        public string Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+        public int nSize
+        {
+            get { return nodeSize; }
+            set { nodeSize = value; }
+        }
+        public List<string> Funcs {get { return funcs; } set { funcs = value; } }
 
         /**
          * Crear nodo de arbol con la informacion sin parsear
@@ -21,7 +31,7 @@ namespace Superposiciones
          */
         public Node(string info)
         {
-            Funcs = new List<string>();
+            funcs = new List<string>();
 
             // Extraer informacion detro de parentesis
             string strFunc = info.Split('(', ')')[1];
@@ -29,10 +39,10 @@ namespace Superposiciones
             if (strFunc.Contains(","))
             {
                 foreach(var f in strFunc.Split(','))
-                    Funcs.Add(f.Trim());
+                    funcs.Add(f.Trim());
             } else
             {
-                Funcs.Add(strFunc);
+                funcs.Add(strFunc);
             }
 
             // Obtener informacion primero quitando contenido de parentesis

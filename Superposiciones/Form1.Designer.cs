@@ -82,12 +82,13 @@
             // 
             this.treeView.Location = new System.Drawing.Point(28, 85);
             this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(169, 192);
+            this.treeView.Size = new System.Drawing.Size(128, 192);
             this.treeView.TabIndex = 1;
             // 
             // botCarga
             // 
-            this.botCarga.Location = new System.Drawing.Point(236, 51);
+            this.botCarga.Enabled = false;
+            this.botCarga.Location = new System.Drawing.Point(185, 51);
             this.botCarga.Name = "botCarga";
             this.botCarga.Size = new System.Drawing.Size(75, 23);
             this.botCarga.TabIndex = 2;
@@ -97,7 +98,8 @@
             // 
             // textCarga
             // 
-            this.textCarga.Location = new System.Drawing.Point(352, 54);
+            this.textCarga.Enabled = false;
+            this.textCarga.Location = new System.Drawing.Point(284, 53);
             this.textCarga.Name = "textCarga";
             this.textCarga.Size = new System.Drawing.Size(77, 20);
             this.textCarga.TabIndex = 3;
@@ -109,7 +111,7 @@
             this.dirRelativa,
             this.dirReal,
             this.longitud});
-            this.listView1.Location = new System.Drawing.Point(236, 85);
+            this.listView1.Location = new System.Drawing.Point(185, 85);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(244, 192);
             this.listView1.TabIndex = 5;
@@ -136,7 +138,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(349, 35);
+            this.label1.Location = new System.Drawing.Point(285, 37);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(144, 13);
             this.label1.TabIndex = 6;

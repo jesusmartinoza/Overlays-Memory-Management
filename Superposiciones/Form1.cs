@@ -362,7 +362,7 @@ namespace Superposiciones
 
                         // Agregar a GraphViz
                         var label = ImmutableDictionary.CreateBuilder<Id, Id>();
-                        label.Add("label", node.Id);
+                        label.Add("label", "");
 
                         edgesGraphviz.Add(new EdgeStatement(parentId, node.Id, label.ToImmutable()));
                     }

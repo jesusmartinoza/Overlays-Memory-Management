@@ -56,5 +56,17 @@ namespace Superposiciones
                         .Replace("(", "")
                         .Replace(")", "");
         }
+
+        public String GetFunctions()
+        {
+            String str = "( ";
+
+            foreach(var f in funcs)
+            {
+                str += f + " ";
+            }
+
+            return str + ")";
+        }
     }
 }

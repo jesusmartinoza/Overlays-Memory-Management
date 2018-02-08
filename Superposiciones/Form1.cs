@@ -8,6 +8,11 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Shields.GraphViz.Services;
+using Shields.GraphViz.Components;
+using Shields.GraphViz.Models;
+using System.Collections.Immutable;
+using System.Threading;
 
 //NOTA: todo se guarda en int y se maneja en int hasta el momento de agregarlo
 //al listview con el .ToString("X")
@@ -23,6 +28,10 @@ namespace Superposiciones
         public Dictionary<string, Int32> functions;
         public Dictionary<string, Int32> caminos;
 
+        // Graphviz
+        private IRenderer renderer;
+        private List<EdgeStatement> edgesGraphviz;
+
         private bool band = false;
         private int max = 0, min = 0;
         private int acumulador = 0;
@@ -30,7 +39,8 @@ namespace Superposiciones
         public Form1()
         {
             InitializeComponent();
-            
+            renderer = new Renderer(@"C:\Program Files\Graphviz2.38\bin");
+            edgesGraphviz = new List<EdgeStatement>();
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -63,6 +73,7 @@ namespace Superposiciones
         private void botCarga_Click(object sender, EventArgs e)
         {
             listViewMemory.Items.Clear();
+            listViewGraphic.Items.Clear();
             if (textCarga.Text != "")
             {
                 //recuperar la dirección de carga
@@ -71,11 +82,14 @@ namespace Superposiciones
                 dirCarga = Int32.Parse(dirCargaStr, System.Globalization.NumberStyles.HexNumber);
                 //longText= File.ReadAllText(opFile.FileName);
                 longText = readFile();
-                listViewGraphic.Items.Clear();
-                llenarTabla();
-                //Memoria maxima y minima
-                minimo();
-                maximo();
+
+                if(longText != null)
+                {
+                    llenarTabla();
+                    //Memoria maxima y minima
+                    minimo();
+                    maximo();
+                }
             }
             else MessageBox.Show("Ingrese una dirección de carga");
         }
@@ -113,12 +127,6 @@ namespace Superposiciones
             {
                 for (int i = 0; i < nodos.Count; i++)
                 {
-                   /* ListViewItem row = new ListViewItem();
-                    String[] arr = { nodos[i].Text,
-                                    (nodes[nodos[i].Text].dRel + dirCarga).ToString("X"),
-                                    (nodes[nodos[i].Text].dRel + dirCarga + nodes[nodos[i].Text].nSize - 1).ToString("X") };
-                    ListViewItem lv = new ListViewItem(arr);
-                    listViewGraphic.Items.Add(lv);*/
                     recuCam(nodos[i].Nodes, cadena + nodos[i].Text + "->", costo + dameLong(nodos[i].Text));
                 }
             }
@@ -216,7 +224,6 @@ namespace Superposiciones
                 }
             }
             CallRecursive(treeView);
-           
         }
 
         /*
@@ -352,9 +359,15 @@ namespace Superposiciones
                         treeNode.Name = node.Id;
 
                         parentNode.Nodes.Add(treeNode);
-                        
+
+                        // Agregar a GraphViz
+                        var label = ImmutableDictionary.CreateBuilder<Id, Id>();
+                        label.Add("label", node.Id);
+
+                        edgesGraphviz.Add(new EdgeStatement(parentId, node.Id, label.ToImmutable()));
                     }
 
+                    // Agregar a lista de nodos
                     nodes.Add(node.Id, node);
                     parentId = node.Id;
                 } else if (directive.Contains("PARENT")) {
@@ -372,11 +385,38 @@ namespace Superposiciones
                 }
             }
             treeView.EndUpdate();
+            GenerateTreeImage();
         }
         
-        private void generatePathTable()
+        private async Task GenerateTreeImage()
         {
+            Graph graph = Graph.Directed
+                //.Add(AttributeStatement.Graph.Set("rankdir", "LR"))
+                .Add(AttributeStatement.Graph.Set("labelloc", "t"))
+                .Add(AttributeStatement.Node.Set("style", "filled"))
+                .Add(AttributeStatement.Node.Set("fillcolor", "#ff6b81"))
+                .Add(AttributeStatement.Edge.Set("color", "#0a3d62"))
+                .AddRange(edgesGraphviz);
 
+            using (Stream file = File.Create("graph.png"))
+            {
+                await renderer.RunAsync(
+                    graph, file,
+                    RendererLayouts.Dot,
+                    RendererFormats.Png,
+                    CancellationToken.None);
+
+                pictureBox1.ImageLocation = (file as FileStream).Name;
+            }
+        }
+
+        /**
+         * Open Image using Windows
+         */
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            if(pictureBox1.ImageLocation != null)
+                System.Diagnostics.Process.Start(pictureBox1.ImageLocation);
         }
 
         private void ayudaToolStripMenuItem_Click(object sender, EventArgs e)

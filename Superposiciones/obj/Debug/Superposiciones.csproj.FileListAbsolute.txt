@@ -61,3 +61,9 @@ C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\obj\Debug\Su
 C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\obj\Debug\Superposiciones.csproj.CoreCompileInputs.cache
 C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\obj\Debug\Superposiciones.exe
 C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\obj\Debug\Superposiciones.pdb
+C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\bin\Debug\MicroDocum.Analyzers.dll
+C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\bin\Debug\MicroDocum.Graphviz.dll
+C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\bin\Debug\Shields.GraphViz.dll
+C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\bin\Debug\System.Collections.Immutable.dll
+C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\bin\Debug\Shields.GraphViz.xml
+C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\bin\Debug\System.Collections.Immutable.xml

@@ -40,7 +40,6 @@
             this.dirRelativa = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.dirReal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.longitud = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -58,6 +57,7 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -65,6 +65,7 @@
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -75,7 +76,7 @@
             this.salirToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(912, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(715, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -102,17 +103,17 @@
             // 
             // treeView
             // 
-            this.treeView.Location = new System.Drawing.Point(19, 32);
+            this.treeView.Location = new System.Drawing.Point(6, 91);
             this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(128, 282);
+            this.treeView.Size = new System.Drawing.Size(145, 161);
             this.treeView.TabIndex = 1;
             // 
             // botCarga
             // 
             this.botCarga.Enabled = false;
-            this.botCarga.Location = new System.Drawing.Point(104, 45);
+            this.botCarga.Location = new System.Drawing.Point(101, 17);
             this.botCarga.Name = "botCarga";
-            this.botCarga.Size = new System.Drawing.Size(75, 23);
+            this.botCarga.Size = new System.Drawing.Size(50, 23);
             this.botCarga.TabIndex = 2;
             this.botCarga.Text = "Cargar";
             this.botCarga.UseVisualStyleBackColor = true;
@@ -121,9 +122,9 @@
             // textCarga
             // 
             this.textCarga.Enabled = false;
-            this.textCarga.Location = new System.Drawing.Point(4, 45);
+            this.textCarga.Location = new System.Drawing.Point(7, 19);
             this.textCarga.Name = "textCarga";
-            this.textCarga.Size = new System.Drawing.Size(77, 20);
+            this.textCarga.Size = new System.Drawing.Size(73, 20);
             this.textCarga.TabIndex = 3;
             this.textCarga.Text = "0";
             // 
@@ -159,50 +160,42 @@
             // 
             this.longitud.Text = "Longitud";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(144, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Ingrese la dirección de carga";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(26, 16);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 13);
+            this.label2.Size = new System.Drawing.Size(0, 13);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Árbol de Trayectorias";
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.treeView);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(12, 27);
+            this.groupBox1.Location = new System.Drawing.Point(12, 89);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(167, 320);
+            this.groupBox1.Size = new System.Drawing.Size(157, 258);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Árbol de trayectorias";
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.botCarga);
             this.groupBox2.Controls.Add(this.textCarga);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(185, 27);
+            this.groupBox2.Location = new System.Drawing.Point(12, 27);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(188, 79);
+            this.groupBox2.Size = new System.Drawing.Size(157, 52);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Dirección de carga";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(83, 47);
+            this.label3.Location = new System.Drawing.Point(82, 22);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(15, 13);
             this.label3.TabIndex = 7;
@@ -213,27 +206,29 @@
             this.richTextBox1.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.richTextBox1.Location = new System.Drawing.Point(6, 19);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(172, 210);
+            this.richTextBox1.Size = new System.Drawing.Size(172, 69);
             this.richTextBox1.TabIndex = 10;
             this.richTextBox1.Text = "";
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.richTextBox1);
-            this.groupBox3.Location = new System.Drawing.Point(189, 112);
+            this.groupBox3.Location = new System.Drawing.Point(186, 253);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(184, 235);
+            this.groupBox3.Size = new System.Drawing.Size(184, 94);
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Archivo";
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.listViewMemory);
-            this.groupBox4.Location = new System.Drawing.Point(379, 27);
+            this.groupBox4.Location = new System.Drawing.Point(186, 27);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(258, 220);
             this.groupBox4.TabIndex = 12;
             this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Tabla de memoria";
             // 
             // groupBox5
             // 
@@ -241,30 +236,31 @@
             this.groupBox5.Controls.Add(this.textBoxMax);
             this.groupBox5.Controls.Add(this.label5);
             this.groupBox5.Controls.Add(this.label4);
-            this.groupBox5.Location = new System.Drawing.Point(385, 253);
+            this.groupBox5.Location = new System.Drawing.Point(384, 253);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(334, 100);
+            this.groupBox5.Size = new System.Drawing.Size(320, 94);
             this.groupBox5.TabIndex = 13;
             this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Recorridos";
             // 
             // textBoxMin
             // 
-            this.textBoxMin.Location = new System.Drawing.Point(98, 39);
+            this.textBoxMin.Location = new System.Drawing.Point(98, 60);
             this.textBoxMin.Name = "textBoxMin";
-            this.textBoxMin.Size = new System.Drawing.Size(222, 20);
+            this.textBoxMin.Size = new System.Drawing.Size(216, 20);
             this.textBoxMin.TabIndex = 11;
             // 
             // textBoxMax
             // 
-            this.textBoxMax.Location = new System.Drawing.Point(98, 16);
+            this.textBoxMax.Location = new System.Drawing.Point(98, 28);
             this.textBoxMax.Name = "textBoxMax";
-            this.textBoxMax.Size = new System.Drawing.Size(222, 20);
+            this.textBoxMax.Size = new System.Drawing.Size(216, 20);
             this.textBoxMax.TabIndex = 10;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 42);
+            this.label5.Location = new System.Drawing.Point(6, 58);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(85, 13);
             this.label5.TabIndex = 9;
@@ -273,7 +269,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 16);
+            this.label4.Location = new System.Drawing.Point(6, 28);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(86, 13);
             this.label4.TabIndex = 8;
@@ -288,7 +284,7 @@
             this.listViewGraphic.GridLines = true;
             this.listViewGraphic.Location = new System.Drawing.Point(12, 23);
             this.listViewGraphic.Name = "listViewGraphic";
-            this.listViewGraphic.Size = new System.Drawing.Size(229, 179);
+            this.listViewGraphic.Size = new System.Drawing.Size(229, 187);
             this.listViewGraphic.TabIndex = 14;
             this.listViewGraphic.UseCompatibleStateImageBehavior = false;
             this.listViewGraphic.View = System.Windows.Forms.View.Details;
@@ -311,18 +307,26 @@
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.listViewGraphic);
-            this.groupBox6.Location = new System.Drawing.Point(650, 36);
+            this.groupBox6.Location = new System.Drawing.Point(458, 28);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(247, 210);
+            this.groupBox6.Size = new System.Drawing.Size(247, 219);
             this.groupBox6.TabIndex = 15;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Recorrido mínimo en memoria";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(7, 21);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(144, 64);
+            this.pictureBox1.TabIndex = 11;
+            this.pictureBox1.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(912, 359);
+            this.ClientSize = new System.Drawing.Size(715, 359);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox5);
@@ -344,6 +348,7 @@
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -363,7 +368,6 @@
         private System.Windows.Forms.ColumnHeader dirRelativa;
         private System.Windows.Forms.ColumnHeader dirReal;
         private System.Windows.Forms.ColumnHeader longitud;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -381,6 +385,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

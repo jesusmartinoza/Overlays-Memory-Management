@@ -50,3 +50,14 @@ C:\Users\Administrador_\Downloads\Overlays-Memory-Management-master\Superposicio
 C:\Users\Administrador_\Downloads\Overlays-Memory-Management-master\Superposiciones\obj\Debug\Superposiciones.Form1.resources
 C:\Users\Administrador_\Downloads\Overlays-Memory-Management-master\Superposiciones\obj\Debug\Superposiciones.Properties.Resources.resources
 C:\Users\Administrador_\Downloads\Overlays-Memory-Management-master\Superposiciones\obj\Debug\Superposiciones.csproj.GenerateResource.Cache
+C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\bin\Debug\Superposiciones.exe.config
+C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\bin\Debug\Superposiciones.exe
+C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\bin\Debug\Superposiciones.pdb
+C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\obj\Debug\Superposiciones.csprojResolveAssemblyReference.cache
+C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\obj\Debug\Superposiciones.AyudaForm.resources
+C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\obj\Debug\Superposiciones.Form1.resources
+C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\obj\Debug\Superposiciones.Properties.Resources.resources
+C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\obj\Debug\Superposiciones.csproj.GenerateResource.Cache
+C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\obj\Debug\Superposiciones.csproj.CoreCompileInputs.cache
+C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\obj\Debug\Superposiciones.exe
+C:\Users\hongo\Documents\Overlays-Memory-Management\Superposiciones\obj\Debug\Superposiciones.pdb

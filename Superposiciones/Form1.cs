@@ -21,7 +21,11 @@ namespace Superposiciones
         public int dirCarga;
         public Dictionary<string, Node> nodes;
         public Dictionary<string, Int32> functions;
-          
+
+        private bool band = false;
+        private int max = 0, min = 0;
+        private int acumulador = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -36,33 +40,82 @@ namespace Superposiciones
         //carga de configuración
         private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            confText = readFile();
+            richTextBox1.Text = readFile();
+            confText = richTextBox1.Text;
             textCarga.Enabled = true;
-            botCarga.Enabled = true;
-            textCarga.Text = null;
             treeView.Nodes.Clear();          
             construirArbol();
+            treeView.ExpandAll();
+
+            if (treeView.Nodes.Count > 0)
+            {
+                botCarga.Enabled = true;
+            }
+            else
+            {
+                botCarga.Enabled = false;
+            }
         }
 
         //carga de longitudes
         private void botCarga_Click(object sender, EventArgs e)
         {
             listView1.Items.Clear();
-            if (textCarga.Text != null)
+            if (textCarga.Text != "")
             {
                 //recuperar la dirección de carga
                 dirCargaStr = textCarga.Text;
                 //convertir a int la cadena en hex
                 dirCarga = Int32.Parse(dirCargaStr, System.Globalization.NumberStyles.HexNumber);
+                //longText= File.ReadAllText(opFile.FileName);
+                longText = readFile();
+                llenarTabla();
+                maxMin();//Memoria maxima y minima
             }
             else MessageBox.Show("Ingrese una dirección de carga");
-            longText = readFile();
-            llenarTabla();
         }
+
+        private void Recursive(TreeNode treeNode)
+        {
+            if(!band)
+            {//Es una rama
+                band = true;
+                if(max<acumulador)
+                {
+                    max = acumulador;
+                }//Para ver que camino es mas largo
+                if(1010 > acumulador)
+                {
+                    min = acumulador;
+                }//Para ver que camino es mas corto
+                acumulador = nodes[treeNode.Parent.Name].nSize;
+            }
+            // Print the node.
+            System.Diagnostics.Debug.WriteLine(treeNode.Text);
+            acumulador+=nodes[treeNode.Text].nSize;
+            foreach (TreeNode tn in treeNode.Nodes)
+            {
+                Recursive(tn);
+                band = false;
+            }
+        }
+        private void maxMin()
+        {
+            TreeNodeCollection nodes = treeView.Nodes;
+            int aux;
+            foreach (TreeNode n in nodes)
+            {
+                band = true;
+                Recursive(n);
+            }
+            textBox1.Text = max.ToString("X");
+            aux = Int32.Parse(listView1.TopItem.SubItems[3].Text, System.Globalization.NumberStyles.HexNumber);
+            min += aux;
+            textBox2.Text = min.ToString("X");
+        }
+
         private void llenarTabla()
         {
-            
-            int level = 0;
             getFunctions(); //recupera cada función y las guarda en un dict con sus tamaños
             foreach(var item in nodes.Values)
             {
@@ -80,18 +133,16 @@ namespace Superposiciones
             CallRecursive(treeView);
            
         }
+
         /*
          * realiza y muestra los cálculos
          */
-         private void calculatePaths()
-        {
-            
-        }
+
         private void PrintRecursive(TreeNode treeNode)
         {
             string[] arr = new string[4]; //aux para llenar listView
-            int dirReal = 0, dirRel = 0; //dirs para la tabla, aún no funcionan
-
+            int tam = nodes.Values.Count;
+            int[,] mat = new int[tam,tam];
             //añade elementos al listview, aquí hay que hacer el recorrido por 
             //los nodos para manejar lo de las dirs
             foreach (var item in nodes.Keys)
@@ -144,30 +195,34 @@ namespace Superposiciones
          * */
         private void getFunctions()
         {
-            var lines = longText.Split(
-                   new[] { "\r\n", "\r", "\n" },
-                   StringSplitOptions.None);
-            functions = new Dictionary<string, int>();
-
-            for (int j = 0; j < lines.Length; j++)
+            try
             {
-                var directive = lines[j].Split()[0].ToUpper();
-                string funcSize;
+                var lines = longText.Split(
+                       new[] { "\r\n", "\r", "\n" },
+                       StringSplitOptions.None);
+                functions = new Dictionary<string, int>();
 
-                foreach (var item in nodes.Values)
+                for (int j = 0; j < lines.Length; j++)
                 {
-                    foreach (string func in item.Funcs)
+                    var directive = lines[j].Split()[0].ToUpper();
+                    string funcSize;
+
+                    foreach (var item in nodes.Values)
                     {
-                        if (directive.Contains(func))
+                        foreach (string func in item.Funcs)
                         {
-                            funcSize = lines[j].Replace(func, "").Trim();
-                            if(!functions.ContainsKey(func))
-                                functions.Add(func, Int32.Parse(funcSize, System.Globalization.NumberStyles.HexNumber));
-                            
+                            if (directive.Contains(func))
+                            {
+                                funcSize = lines[j].Replace(func, "").Trim();
+                                if (!functions.ContainsKey(func))
+                                    functions.Add(func, Convert.ToInt32(funcSize, 16));
+
+                            }
                         }
                     }
                 }
             }
+            catch { MessageBox.Show("Ocurrió un problema"); }
         }
         /**
          * Leer linea por linea y decidir que hacer en caso de
@@ -211,6 +266,7 @@ namespace Superposiciones
                         treeNode.Name = node.Id;
 
                         parentNode.Nodes.Add(treeNode);
+                        
                     }
 
                     nodes.Add(node.Id, node);
@@ -221,6 +277,11 @@ namespace Superposiciones
                 }
             }
             treeView.EndUpdate();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void ayudaToolStripMenuItem_Click(object sender, EventArgs e)

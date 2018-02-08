@@ -35,7 +35,7 @@
             this.treeView = new System.Windows.Forms.TreeView();
             this.botCarga = new System.Windows.Forms.Button();
             this.textCarga = new System.Windows.Forms.TextBox();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listViewMemory = new System.Windows.Forms.ListView();
             this.segmento = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.dirRelativa = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.dirReal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -49,20 +49,15 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxMin = new System.Windows.Forms.TextBox();
+            this.textBoxMax = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.listView2 = new System.Windows.Forms.ListView();
+            this.listViewGraphic = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label6 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -80,7 +75,7 @@
             this.salirToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(868, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(912, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -132,20 +127,21 @@
             this.textCarga.TabIndex = 3;
             this.textCarga.Text = "0";
             // 
-            // listView1
+            // listViewMemory
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listViewMemory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.segmento,
             this.dirRelativa,
             this.dirReal,
             this.longitud});
-            this.listView1.Location = new System.Drawing.Point(6, 19);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(244, 192);
-            this.listView1.TabIndex = 5;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            this.listViewMemory.GridLines = true;
+            this.listViewMemory.Location = new System.Drawing.Point(6, 19);
+            this.listViewMemory.Name = "listViewMemory";
+            this.listViewMemory.Size = new System.Drawing.Size(244, 192);
+            this.listViewMemory.TabIndex = 5;
+            this.listViewMemory.UseCompatibleStateImageBehavior = false;
+            this.listViewMemory.View = System.Windows.Forms.View.Details;
+            this.listViewMemory.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // segmento
             // 
@@ -214,6 +210,7 @@
             // 
             // richTextBox1
             // 
+            this.richTextBox1.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.richTextBox1.Location = new System.Drawing.Point(6, 19);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(172, 210);
@@ -231,7 +228,7 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.listView1);
+            this.groupBox4.Controls.Add(this.listViewMemory);
             this.groupBox4.Location = new System.Drawing.Point(379, 27);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(258, 220);
@@ -240,33 +237,29 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.textBox4);
-            this.groupBox5.Controls.Add(this.textBox3);
-            this.groupBox5.Controls.Add(this.label8);
-            this.groupBox5.Controls.Add(this.label7);
-            this.groupBox5.Controls.Add(this.textBox2);
-            this.groupBox5.Controls.Add(this.textBox1);
+            this.groupBox5.Controls.Add(this.textBoxMin);
+            this.groupBox5.Controls.Add(this.textBoxMax);
             this.groupBox5.Controls.Add(this.label5);
             this.groupBox5.Controls.Add(this.label4);
             this.groupBox5.Location = new System.Drawing.Point(385, 253);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(471, 70);
+            this.groupBox5.Size = new System.Drawing.Size(334, 100);
             this.groupBox5.TabIndex = 13;
             this.groupBox5.TabStop = false;
             // 
-            // textBox2
+            // textBoxMin
             // 
-            this.textBox2.Location = new System.Drawing.Point(113, 39);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 11;
+            this.textBoxMin.Location = new System.Drawing.Point(98, 39);
+            this.textBoxMin.Name = "textBoxMin";
+            this.textBoxMin.Size = new System.Drawing.Size(222, 20);
+            this.textBoxMin.TabIndex = 11;
             // 
-            // textBox1
+            // textBoxMax
             // 
-            this.textBox1.Location = new System.Drawing.Point(113, 16);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 10;
+            this.textBoxMax.Location = new System.Drawing.Point(98, 16);
+            this.textBoxMax.Name = "textBoxMax";
+            this.textBoxMax.Size = new System.Drawing.Size(222, 20);
+            this.textBoxMax.TabIndex = 10;
             // 
             // label5
             // 
@@ -282,92 +275,54 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 16);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(89, 13);
+            this.label4.Size = new System.Drawing.Size(86, 13);
             this.label4.TabIndex = 8;
-            this.label4.Text = "Memoria Máxima ";
+            this.label4.Text = "Memoria Máxima";
             // 
-            // listView2
+            // listViewGraphic
             // 
-            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listViewGraphic.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3});
-            this.listView2.Location = new System.Drawing.Point(4, 41);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(184, 142);
-            this.listView2.TabIndex = 14;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            this.listView2.View = System.Windows.Forms.View.Details;
+            this.listViewGraphic.GridLines = true;
+            this.listViewGraphic.Location = new System.Drawing.Point(12, 23);
+            this.listViewGraphic.Name = "listViewGraphic";
+            this.listViewGraphic.Size = new System.Drawing.Size(229, 179);
+            this.listViewGraphic.TabIndex = 14;
+            this.listViewGraphic.UseCompatibleStateImageBehavior = false;
+            this.listViewGraphic.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "Segmento";
-            this.columnHeader1.Width = 61;
+            this.columnHeader1.Text = "SEGMENTO";
+            this.columnHeader1.Width = 76;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Inicio";
+            this.columnHeader2.Text = "INICIO";
+            this.columnHeader2.Width = 69;
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "Fin";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(1, 13);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(147, 13);
-            this.label6.TabIndex = 15;
-            this.label6.Text = "Recorrido mínimo en memoria";
+            this.columnHeader3.Text = "FIN";
+            this.columnHeader3.Width = 70;
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.label6);
-            this.groupBox6.Controls.Add(this.listView2);
-            this.groupBox6.Location = new System.Drawing.Point(656, 33);
+            this.groupBox6.Controls.Add(this.listViewGraphic);
+            this.groupBox6.Location = new System.Drawing.Point(650, 36);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(199, 204);
-            this.groupBox6.TabIndex = 16;
+            this.groupBox6.Size = new System.Drawing.Size(247, 210);
+            this.groupBox6.TabIndex = 15;
             this.groupBox6.TabStop = false;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(232, 16);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(33, 13);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "Ruta:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(232, 42);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(33, 13);
-            this.label8.TabIndex = 13;
-            this.label8.Text = "Ruta:";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(275, 16);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 14;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(275, 39);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 15;
+            this.groupBox6.Text = "Recorrido mínimo en memoria";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(868, 359);
+            this.ClientSize = new System.Drawing.Size(912, 359);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox5);
@@ -378,7 +333,6 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Superposiciones";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -390,7 +344,6 @@
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -405,7 +358,7 @@
         private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.Button botCarga;
         private System.Windows.Forms.TextBox textCarga;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listViewMemory;
         private System.Windows.Forms.ColumnHeader segmento;
         private System.Windows.Forms.ColumnHeader dirRelativa;
         private System.Windows.Forms.ColumnHeader dirReal;
@@ -421,17 +374,12 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.TextBox textBoxMin;
+        private System.Windows.Forms.TextBox textBoxMax;
+        private System.Windows.Forms.ListView listViewGraphic;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox6;
     }
 }

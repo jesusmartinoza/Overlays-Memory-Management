@@ -21,6 +21,7 @@ namespace Superposiciones
         public int dirCarga;
         public Dictionary<string, Node> nodes;
         public Dictionary<string, Int32> functions;
+        public Dictionary<string, Int32> caminos;
 
         private bool band = false;
         private int max = 0, min = 0;
@@ -43,7 +44,8 @@ namespace Superposiciones
             richTextBox1.Text = readFile();
             confText = richTextBox1.Text;
             textCarga.Enabled = true;
-            treeView.Nodes.Clear();          
+            treeView.Nodes.Clear();
+            listViewGraphic.Items.Clear();        
             construirArbol();
             treeView.ExpandAll();
 
@@ -60,7 +62,7 @@ namespace Superposiciones
         //carga de longitudes
         private void botCarga_Click(object sender, EventArgs e)
         {
-            listView1.Items.Clear();
+            listViewMemory.Items.Clear();
             if (textCarga.Text != "")
             {
                 //recuperar la dirección de carga
@@ -69,10 +71,93 @@ namespace Superposiciones
                 dirCarga = Int32.Parse(dirCargaStr, System.Globalization.NumberStyles.HexNumber);
                 //longText= File.ReadAllText(opFile.FileName);
                 longText = readFile();
+                listViewGraphic.Items.Clear();
                 llenarTabla();
-                maxMin();//Memoria maxima y minima
+                //Memoria maxima y minima
+                minimo();
+                maximo();
             }
             else MessageBox.Show("Ingrese una dirección de carga");
+        }
+
+        private void minimo()
+        {
+            int min = 0;
+            caminos = new Dictionary<string, int>();
+            string cad = treeView.TopNode.Text + "->";
+            
+            recuCam(treeView.TopNode.Nodes, cad, dameLong(treeView.TopNode.Text));
+            foreach (var ca in caminos)
+            {
+                if (min == 0 || min> ca.Value)
+                {
+                    min = ca.Value;
+                    textBoxMin.Text = min.ToString("X") + "   " + ca.Key;
+                    listViewGraphic.Items.Clear();
+                    var aux = (ca.Key).Split(new[] { "->" }, StringSplitOptions.None);
+                    foreach (var a in aux)
+                    {
+                        String[] arr = { a, (nodes[a].dRel + dirCarga).ToString("X"), (nodes[a].dRel + dirCarga + nodes[a].nSize - 1).ToString("X") };
+                        ListViewItem lv = new ListViewItem(arr);
+                        listViewGraphic.Items.Add(lv);
+                    }
+                }
+            }
+        }
+        
+        // funcion recursiva que nos ayuda al momento de generar los caminos
+        private void recuCam(TreeNodeCollection nodos, string cadena, Int32 costo)
+        {
+
+            if (nodos.Count > 0)
+            {
+                for (int i = 0; i < nodos.Count; i++)
+                {
+                   /* ListViewItem row = new ListViewItem();
+                    String[] arr = { nodos[i].Text,
+                                    (nodes[nodos[i].Text].dRel + dirCarga).ToString("X"),
+                                    (nodes[nodos[i].Text].dRel + dirCarga + nodes[nodos[i].Text].nSize - 1).ToString("X") };
+                    ListViewItem lv = new ListViewItem(arr);
+                    listViewGraphic.Items.Add(lv);*/
+                    recuCam(nodos[i].Nodes, cadena + nodos[i].Text + "->", costo + dameLong(nodos[i].Text));
+                }
+            }
+            else
+                caminos.Add(cadena.Remove(cadena.Length - 2, 2), costo);
+        }
+
+        private int dameLong(string seg)//Nos regresa la longitud de un segmento dado
+        {
+            int log = 0;
+            for (int i = 0; i < listViewMemory.Items.Count; i++)
+                if (string.Compare(listViewMemory.Items[i].Text, seg) == 0)
+                {
+                    log = int.Parse(listViewMemory.Items[i].SubItems[3].Text, System.Globalization.NumberStyles.HexNumber);
+                    break;
+                }
+            return log;
+        }
+
+        private void maximo()
+        {
+            int max = 0;
+
+            foreach (var ca in caminos)
+            {
+                if (max == 0)
+                {
+                    max = ca.Value;
+                    textBoxMax.Text = max.ToString("X") + "   " + ca.Key;
+                }
+                else
+                {
+                    if (max < ca.Value)
+                    {
+                        max = ca.Value;
+                        textBoxMax.Text = max.ToString("X") + "   " + ca.Key;
+                    }
+                }
+            }
         }
 
         private void Recursive(TreeNode treeNode)
@@ -108,10 +193,10 @@ namespace Superposiciones
                 band = true;
                 Recursive(n);
             }
-            textBox1.Text = max.ToString("X");
-            aux = Int32.Parse(listView1.TopItem.SubItems[3].Text, System.Globalization.NumberStyles.HexNumber);
+            textBoxMax.Text = max.ToString("X");
+            aux = Int32.Parse(listViewMemory.TopItem.SubItems[3].Text, System.Globalization.NumberStyles.HexNumber);
             min += aux;
-            textBox2.Text = min.ToString("X");
+            textBoxMin.Text = min.ToString("X");
         }
 
         private void llenarTabla()
@@ -167,7 +252,7 @@ namespace Superposiciones
                     arr[2] = (dirCarga + nodes[item].dRel).ToString("X"); //dir real
                     arr[3] = nodes[item].nSize.ToString("X");//bien
                     ListViewItem lv = new ListViewItem(arr);
-                    listView1.Items.Add(lv);
+                    listViewMemory.Items.Add(lv);
                 }
             }
             //actions
@@ -222,7 +307,7 @@ namespace Superposiciones
                     }
                 }
             }
-            catch { MessageBox.Show("Ocurrió un problema"); }
+            catch { MessageBox.Show("Ocurrió un problema al leer archivo de tamaño"); }
         }
         /**
          * Leer linea por linea y decidir que hacer en caso de
@@ -237,9 +322,10 @@ namespace Superposiciones
                 );
             Node node;
             string parentId = "";
+            bool errorFound = false;
 
             treeView.BeginUpdate();
-            for(int i = 0; i < lines.Length; i++)
+            for(int i = 0; i < lines.Length && !errorFound; i++)
             {
                 var directive = lines[i].Split()[0].ToUpper(); // Obtener primer palabra
                 string segmentInfo;
@@ -273,13 +359,22 @@ namespace Superposiciones
                     parentId = node.Id;
                 } else if (directive.Contains("PARENT")) {
                     segmentInfo = lines[i].Replace("PARENT", "").Trim();
-                    parentId = nodes[segmentInfo].Id;
+
+                    if(nodes[segmentInfo] != null)
+                    {
+                        parentId = nodes[segmentInfo].Id;
+                    }
+                    else {
+                        errorFound = true;
+                        MessageBox.Show("PARENT " + nodes[segmentInfo].Id + " no existe");
+                    }
+
                 }
             }
             treeView.EndUpdate();
         }
-
-        private void Form1_Load(object sender, EventArgs e)
+        
+        private void generatePathTable()
         {
 
         }

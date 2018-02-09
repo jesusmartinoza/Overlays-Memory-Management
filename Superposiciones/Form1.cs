@@ -13,6 +13,7 @@ using Shields.GraphViz.Components;
 using Shields.GraphViz.Models;
 using System.Collections.Immutable;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 //NOTA: todo se guarda en int y se maneja en int hasta el momento de agregarlo
 //al listview con el .ToString("X")
@@ -55,7 +56,8 @@ namespace Superposiciones
             confText = richTextBox1.Text;
             textCarga.Enabled = true;
             treeView.Nodes.Clear();
-            listViewGraphic.Items.Clear();        
+            listViewGraphic.Items.Clear();
+            edgesGraphviz.Clear();
             construirArbol();
             treeView.ExpandAll();
 
@@ -87,8 +89,14 @@ namespace Superposiciones
                 {
                     llenarTabla();
                     //Memoria maxima y minima
-                    minimo();
-                    maximo();
+                    try
+                    {
+                        minimo();
+                        maximo();
+                    } catch
+                    {
+                        MessageBox.Show("No coincide archivo de configuracion con archivo de longitud");
+                    }
                 }
             }
             else MessageBox.Show("Ingrese una dirección de carga");
@@ -339,9 +347,10 @@ namespace Superposiciones
 
                 // Si es SEGMENT crear nuevo nodo e
                 // insertar en árbol
-                if (directive.Contains("SEGMENT"))
+                if (directive.Equals("SEGMENT"))
                 {
-                    segmentInfo = lines[i].Replace("SEGMENT", "").Trim();
+                    var regex = new Regex(Regex.Escape("SEGMENT"));
+                    segmentInfo = regex.Replace(lines[i], "", 1).Trim();//lines[i].Replace("SEGMENT", "").Trim();
                     node = new Node(segmentInfo);
 
                     if(parentId == "")
@@ -362,15 +371,16 @@ namespace Superposiciones
 
                         // Agregar a GraphViz
                         var label = ImmutableDictionary.CreateBuilder<Id, Id>();
-                        label.Add("label", "");
+                        label.Add("headlabel", node.GetFunctions());
 
                         edgesGraphviz.Add(new EdgeStatement(parentId, node.Id, label.ToImmutable()));
                     }
 
                     // Agregar a lista de nodos
-                    nodes.Add(node.Id, node);
+                    if(!nodes.ContainsKey(node.Id))
+                        nodes.Add(node.Id, node);
                     parentId = node.Id;
-                } else if (directive.Contains("PARENT")) {
+                } else if (directive.Equals("PARENT")) {
                     segmentInfo = lines[i].Replace("PARENT", "").Trim();
 
                     if(nodes[segmentInfo] != null)
@@ -390,12 +400,19 @@ namespace Superposiciones
         
         private async Task GenerateTreeImage()
         {
+            if (nodes.Count == 0)
+                return;
+
+            var label = ImmutableDictionary.CreateBuilder<Id, Id>();
+            label.Add("xlabel", nodes.First().Value.GetFunctions());
+
             Graph graph = Graph.Directed
                 //.Add(AttributeStatement.Graph.Set("rankdir", "LR"))
                 .Add(AttributeStatement.Graph.Set("labelloc", "t"))
                 .Add(AttributeStatement.Node.Set("style", "filled"))
                 .Add(AttributeStatement.Node.Set("fillcolor", "#ff6b81"))
                 .Add(AttributeStatement.Edge.Set("color", "#0a3d62"))
+                .Add(new NodeStatement(nodes.First().Key, label.ToImmutable()))
                 .AddRange(edgesGraphviz);
 
             using (Stream file = File.Create("graph.png"))
